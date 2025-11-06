@@ -6,7 +6,7 @@ from pyspark.ml import PipelineModel
 
 # --- Page Config ---
 st.set_page_config(
-    page_title="EV Charging Analysis",
+    page_title="EV Charging Usage Analysis",
     page_icon="⚡",
     layout="wide"
 )
@@ -106,7 +106,8 @@ elif page == "1. Exploratory Data Analysis":
     The results clearly show 'Slow', 'Medium', and 'Fast' chargers:
     """)
     if not cluster_summary_df.empty:
-        st.dataframe(cluster_summary_df, use_container_width=True)
+        # --- FIX 1 ---
+        st.dataframe(cluster_summary_df, width='stretch')
     else:
         st.warning("Cluster summary data not loaded.")
         
@@ -125,7 +126,8 @@ elif page == "1. Exploratory Data Analysis":
             ).properties(
                 title="Peak Charging Start Hours (All Days)"
             ).interactive()
-            st.altair_chart(chart_peak, use_container_width=True)
+            # --- FIX 2 ---
+            st.altair_chart(chart_peak, width='stretch')
         else:
             st.warning("Peak hours data not loaded.")
 
@@ -144,7 +146,8 @@ elif page == "1. Exploratory Data Analysis":
             ).properties(
                 title="Weekday vs. Weekend Charging Patterns"
             ).interactive()
-            st.altair_chart(chart_wknd, use_container_width=True)
+            # --- FIX 3 ---
+            st.altair_chart(chart_wknd, width='stretch')
         else:
             st.warning("Weekday/weekend data not loaded.")
 
@@ -237,5 +240,5 @@ elif page == "2. Energy Prediction Model":
         )
         
         st.subheader("Model Inputs (Processed)")
-        st.write("This is the raw data fed into the PySpark model:")
-        st.dataframe(input_features, use_container_width=True)
+        # --- FIX 4 ---
+        st.dataframe(input_features, width='stretch')
